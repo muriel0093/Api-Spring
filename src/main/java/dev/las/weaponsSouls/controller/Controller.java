@@ -1,14 +1,27 @@
 package dev.las.weaponsSouls.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import dev.las.weaponsSouls.model.WeaponModel;
+import dev.las.weaponsSouls.service.WeaponsService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping()
 public class Controller {
-    @GetMapping("/welcome")
-    public String Welcome(){
-        return "Ola mundo";
+
+    private final WeaponsService wepoS;
+
+    public Controller(WeaponsService wepoS) {
+        this.wepoS = wepoS;
     }
+
+    @GetMapping("/Weapons/getWeapons")
+    public List<WeaponModel> getAll(){
+        return wepoS.getAll();
+    }
+
+    @PostMapping("/Weapons/creatWeapons")
+    public WeaponModel save(@RequestBody WeaponModel wepo){return wepoS.setWeapon(wepo);}
+
 }
